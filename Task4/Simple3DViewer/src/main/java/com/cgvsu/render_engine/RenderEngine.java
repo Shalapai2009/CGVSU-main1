@@ -9,6 +9,8 @@ import com.cgvsu.model.Model;
 import static com.cgvsu.render_engine.GraphicConveyor.*;
 
 public class RenderEngine {
+
+    static float[] scale = {1f, 1f, 1f};
     static Matrix4f matrix4f = new Matrix4f( 1, 0, 0, 0,
             0, 1, 0, 0,
             0, 0, 1, 0,
