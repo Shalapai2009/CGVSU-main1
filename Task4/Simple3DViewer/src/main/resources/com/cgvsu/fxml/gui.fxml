@@ -7,6 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.canvas.Canvas?>
 
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 <AnchorPane fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml" fx:controller="com.cgvsu.GuiController">
     <MenuBar>
         <Menu mnemonicParsing="false" text="File">
@@ -51,4 +54,22 @@
     </MenuBar>
 
     <Canvas fx:id="canvas" width="1600" height="870" AnchorPane.topAnchor="30.0"/>
+    <Slider layoutX="1100.0" layoutY="700.0" max="2.0" prefHeight="14.0" prefWidth="200.0" value="1.0" />
+    <Slider layoutX="1100.0" layoutY="600.0" max="2.0" prefHeight="14.0" prefWidth="200.0" value="1.0" />
+    <Slider layoutX="1100.0" layoutY="800.0" max="2.0" prefHeight="14.0" prefWidth="200.0" value="1.0" />
+    <Text layoutX="1100.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scale" wrappingWidth="167.205078125">
+        <font>
+            <Font size="21.0" />
+        </font>
+    </Text>
+    <Text layoutX="1100.0" layoutY="680.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rotate">
+        <font>
+            <Font size="21.0" />
+        </font>
+    </Text>
+    <Text layoutX="1100.0" layoutY="780.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Translate">
+        <font>
+            <Font size="21.0" />
+        </font>
+    </Text>
 </AnchorPane>
