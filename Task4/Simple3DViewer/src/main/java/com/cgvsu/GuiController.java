@@ -1,29 +1,48 @@
 package com.cgvsu;
 
 import com.cgvsu.render_engine.RenderEngine;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Slider;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
+
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.io.IOException;
 import java.io.File;
+import java.util.ResourceBundle;
+import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 
 import com.cgvsu.model.Model;
 import com.cgvsu.objreader.ObjReader;
 import com.cgvsu.render_engine.Camera;
 
-public class GuiController {
+public class GuiController{
 
     final private float TRANSLATION = 0.5F;
+    @FXML
+    private Slider sliderScale;
+    @FXML
+    private Slider sliderRotate;
+    @FXML
+    private Slider sliderTranslate;
+
+    public static float sliderScaleNumber = 1f;
+    public static float sliderRotateNumber = 0f;
+    public static float sliderTranslateNumber = 0f;
 
     @FXML
     AnchorPane anchorPane;
@@ -32,7 +51,11 @@ public class GuiController {
     private Canvas canvas;
 
     private Model mesh = null;
-
+    private Matrix4f matrix4f = new Matrix4f(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1);
     private Camera camera = new Camera(
             new Vector3f(0, 00, 100),
             new Vector3f(0, 0, 0),
@@ -48,6 +71,32 @@ public class GuiController {
         timeline = new Timeline();
         timeline.setCycleCount(Animation.INDEFINITE);
 
+        sliderScale.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+            sliderScaleNumber = (float) sliderScale.getValue();
+                System.out.println(sliderScaleNumber);
+            }
+
+        });
+
+        sliderRotate.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                sliderRotateNumber = (float) sliderRotate.getValue();
+                System.out.println(sliderRotateNumber);
+            }
+        });
+
+        sliderTranslate.valueProperty().addListener(new ChangeListener<Number>(){
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                sliderTranslateNumber = (float) sliderTranslate.getValue();
+                System.out.println(sliderTranslateNumber);
+            }
+
+        });
+
         KeyFrame frame = new KeyFrame(Duration.millis(15), event -> {
             double width = canvas.getWidth();
             double height = canvas.getHeight();
@@ -56,7 +105,7 @@ public class GuiController {
             camera.setAspectRatio((float) (width / height));
 
             if (mesh != null) {
-                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height);
+                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height,matrix4f);
             }
         });
 
@@ -114,5 +163,15 @@ public class GuiController {
     @FXML
     public void handleCameraDown(ActionEvent actionEvent) {
         camera.movePosition(new Vector3f(0, -TRANSLATION, 0));
+    }
+
+    public void doScale(MouseEvent mouseEvent) {
+        matrix4f.setScale(sliderScaleNumber);
+    }
+
+    public void doRotate(MouseEvent mouseEvent) {
+    }
+
+    public void doTranslate(MouseEvent mouseEvent) {
     }
 }

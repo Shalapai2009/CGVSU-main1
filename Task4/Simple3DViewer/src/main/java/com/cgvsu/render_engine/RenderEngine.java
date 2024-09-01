@@ -2,6 +2,7 @@ package com.cgvsu.render_engine;
 
 import java.util.ArrayList;
 
+import com.cgvsu.GuiController;
 import com.cgvsu.math.Vector3f;
 import javafx.scene.canvas.GraphicsContext;
 import javax.vecmath.*;
@@ -10,28 +11,27 @@ import static com.cgvsu.render_engine.GraphicConveyor.*;
 
 public class RenderEngine {
 
-    static float[] scale = {1f, 1f, 1f};
-    static Matrix4f matrix4f = new Matrix4f( 1, 0, 0, 0,
+
+    static float scale;
+    /*static Matrix4f matrix4f = new Matrix4f(1, 0, 0, 0,
             0, 1, 0, 0,
             0, 0, 1, 0,
-            0, 0, 0, 1);
+            0, 0, 0, 1);*/
     static float x=0;
-
 
     public static void render(
             final GraphicsContext graphicsContext,
             final Camera camera,
             final Model mesh,
             final int width,
-            final int height)
+            final int height,
+            final Matrix4f matrix4f)
 
     {
 
-
-
-
+        scale = GuiController.sliderScaleNumber ;
+        //Matrix4f modelMatrix = scale(matrix4f,scale);
         Matrix4f modelMatrix = matrix4f;
-
         Matrix4f viewMatrix = camera.getViewMatrix();
         Matrix4f projectionMatrix = camera.getProjectionMatrix();
 

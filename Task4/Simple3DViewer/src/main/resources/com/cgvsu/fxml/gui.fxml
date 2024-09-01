@@ -54,8 +54,8 @@
     </MenuBar>
 
     <Canvas fx:id="canvas" height="870" width="1600" AnchorPane.topAnchor="30.0" />
-    <Slider layoutX="1100.0" layoutY="600.0" max="2.0" prefHeight="14.0" prefWidth="200.0" value="1.0" />
-    <Slider layoutX="1100.0" layoutY="800.0" max="2.0" prefHeight="14.0" prefWidth="200.0" value="1.0" />
+    <Slider fx:id="sliderScale" layoutX="1100.0" layoutY="600.0" max="2.0" onDragDetected="#doScale" prefHeight="14.0" prefWidth="200.0" value="1.0" />
+    <Slider fx:id="sliderTranslate" layoutX="1100.0" layoutY="800.0" max="2.0" onDragDetected="#doTranslate" prefHeight="14.0" prefWidth="200.0" value="1.0" />
     <Text layoutX="1100.0" layoutY="580.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scale" wrappingWidth="167.205078125">
         <font>
             <Font size="21.0" />
@@ -71,5 +71,5 @@
             <Font size="21.0" />
         </font>
     </Text>
-   <Slider layoutX="1100.0" layoutY="700.0" max="2.0" prefHeight="14.0" prefWidth="200.0" value="1.0" />
+   <Slider fx:id="sliderRotate" layoutX="1100.0" layoutY="700.0" max="2.0" onDragDetected="#doRotate" prefHeight="14.0" prefWidth="200.0" value="1.0" />
 </AnchorPane>
