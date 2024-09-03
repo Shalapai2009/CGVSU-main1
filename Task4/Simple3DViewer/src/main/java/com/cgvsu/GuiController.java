@@ -33,12 +33,16 @@ import com.cgvsu.render_engine.Camera;
 public class GuiController{
 
     final private float TRANSLATION = 0.5F;
+    float rotate = 0f;
+
     @FXML
     private Slider sliderScale;
     @FXML
     private Slider sliderRotate;
     @FXML
     private Slider sliderTranslate;
+
+
 
     public static float sliderScaleNumber = 1f;
     public static float sliderRotateNumber = 0f;
@@ -51,7 +55,22 @@ public class GuiController{
     private Canvas canvas;
 
     private Model mesh = null;
-    private Matrix4f matrix4f = new Matrix4f(
+    private Matrix4f matrix4fFinal = new Matrix4f(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1);
+    private Matrix4f matrix4fScale = new Matrix4f(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1);
+    private Matrix4f matrix4fRotate = new Matrix4f(
+            1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            0, 0, 0, 1);
+    private Matrix4f matrix4fTranslate = new Matrix4f(
             1, 0, 0, 0,
             0, 1, 0, 0,
             0, 0, 1, 0,
@@ -75,7 +94,11 @@ public class GuiController{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
             sliderScaleNumber = (float) sliderScale.getValue();
-                System.out.println(sliderScaleNumber);
+                 matrix4fScale.m00 = sliderScaleNumber;
+                 matrix4fScale.m11 = sliderScaleNumber;
+                 matrix4fScale.m22 = sliderScaleNumber;
+                 System.out.println(sliderScaleNumber);
+
             }
 
         });
@@ -84,6 +107,16 @@ public class GuiController{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 sliderRotateNumber = (float) sliderRotate.getValue();
+                double rotateInRadians = Math.toRadians(sliderRotateNumber);
+                float var2 = (float)Math.sin(rotateInRadians);
+                float var3 = (float)Math.cos(rotateInRadians);
+                matrix4fRotate.m11 = var3;
+                matrix4fRotate.m12 = -var2;
+                matrix4fRotate.m21 = var2;
+                matrix4fRotate.m22 = var3;
+
+
+
                 System.out.println(sliderRotateNumber);
             }
         });
@@ -92,7 +125,9 @@ public class GuiController{
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
                 sliderTranslateNumber = (float) sliderTranslate.getValue();
-                System.out.println(sliderTranslateNumber);
+                matrix4fTranslate.m30 = sliderTranslateNumber;
+                matrix4fTranslate.m31 = sliderTranslateNumber;
+                matrix4fTranslate.m32 = sliderTranslateNumber;
             }
 
         });
@@ -105,7 +140,9 @@ public class GuiController{
             camera.setAspectRatio((float) (width / height));
 
             if (mesh != null) {
-                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height,matrix4f);
+                matrix4fFinal.mul(matrix4fScale, matrix4fRotate);
+                matrix4fFinal.mul(matrix4fTranslate);
+                RenderEngine.render(canvas.getGraphicsContext2D(), camera, mesh, (int) width, (int) height, matrix4fFinal);
             }
         });
 
@@ -166,7 +203,10 @@ public class GuiController{
     }
 
     public void doScale(MouseEvent mouseEvent) {
-        matrix4f.setScale(sliderScaleNumber);
+       // matrix4f.m00 = sliderScaleNumber;
+       // matrix4f.m11 = sliderScaleNumber;
+        //matrix4f.m22 = sliderScaleNumber;
+       // System.out.println(sliderScaleNumber);
     }
 
     public void doRotate(MouseEvent mouseEvent) {

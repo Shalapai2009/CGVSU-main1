@@ -2,35 +2,30 @@ package com.cgvsu.render_engine;
 import javax.vecmath.*;
 
 public class GraphicConveyor {
-    //static float scale = 1;
-    /*static Matrix4f matrix4f = new Matrix4f(
-            1,0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1);*/
     static float x = 0;
-    static float up =1.002f;
 
     public static Matrix4f scale(Matrix4f matrix4f, float scale) {
-       // Matrix4f matrix4f = new Matrix4f(matrix);
-        matrix4f.m00 *= scale;
+        /*matrix4f.m00 *= scale;
         matrix4f.m11 *= scale;
         matrix4f.m22 *= scale;
-        return matrix4f;
+        return matrix4f;*/
+        return null;
     }
     public static Matrix4f rotate(Matrix4f matrix4f) {
-        float var2 = (float)Math.sin(x);
+/*        float var2 = (float)Math.sin(x);
         float var3 = (float)Math.cos(x);
         matrix4f.m11 = var3;
         matrix4f.m12 = -var2;
         matrix4f.m21 = var2;
         matrix4f.m22 = var3;
          x+=0.008f;
-        return matrix4f;
+        return matrix4f;*/
+        return null;
     }
 
     public static Matrix4f translate(Matrix4f matrix4f){
-        return matrix4f;
+       // return matrix4f;
+        return null;
     }
 
     public static Matrix4f lookAt(Vector3f eye, Vector3f target) {

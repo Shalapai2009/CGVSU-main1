@@ -28,8 +28,6 @@ public class RenderEngine {
             final Matrix4f matrix4f)
 
     {
-
-        scale = GuiController.sliderScaleNumber ;
         //Matrix4f modelMatrix = scale(matrix4f,scale);
         Matrix4f modelMatrix = matrix4f;
         Matrix4f viewMatrix = camera.getViewMatrix();
